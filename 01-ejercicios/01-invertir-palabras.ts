@@ -29,6 +29,7 @@ export function run(): void {
     if (!result) {
       return;
     }
+
     console.log(`Original: ${text}, invertida: ${result}`)
   });
 }
