@@ -67,21 +67,25 @@ En las opciones de configuración de la plataforma, selecciona MySQL como motor 
 Copia el script que se encuentra en `01-ejercicios\05-consulta-sonia.sql`. Incluye la creación de tablas, los datos de prueba y la consulta final.
 
 ### Sección 2 (App Fullstack)
+El sistema se compone de tres servicios principales orquestados mediante Docker Compose:
+Frontend (Nuxt 3): Corriendo en el puerto 3000.
+Backend (NestJS): Corriendo en el puerto 4000.
+Database (MongoDB): Ejecutándose internamente en el puerto 27017 y expuesta localmente en el 27018.
+
+- **Levantamineto de servicios**
+    Levanta todos los servicios con Docker Compose: `docker compose up --build -d`
+    Levanta frontend: `docker compose up --build -d frontend`
+    Levanta backend: `docker compose up --build -d backend`
+    Levanta mongo: `docker compose up --build -d mongo`
+
 - **Backend (NestJS + MongoDB)** 
 
     API RESTful desarrollada con NestJS, utilizando Mongoose para la persistencia de datos en MongoDB y contenedores mediante Docker Compose.
 
-    Levanta los servicios con Docker Compose: `docker compose up --build`
-
-    Esto pondrá en marcha dos contenedores:
-    - backend: Corriendo en el puerto 4000.
-    - mongo: Base de datos MongoDB ejecutándose en el puerto 27017 (expuesta localmente en el 27018).
-
     **Cómo probar la API**
-
     Puedes probar los endpoints utilizando herramientas como Thunder Client, Postman o cURL. 
 
-    Autenticación: Las peticiones protegidas requieren enviar un Header HTTP:
+    **Autenticación**: Las peticiones protegidas requieren enviar un Header HTTP:
     - Authorization: Bearer token-secret (o el token configurado en las variables de entorno)
 
     **Endpoints disponibles (/api/tasks):**
@@ -115,12 +119,32 @@ Copia el script que se encuentra en `01-ejercicios\05-consulta-sonia.sql`. Inclu
         - Método: DELETE
         - URL: http://localhost:4000/api/tasks/:id
 
+
+- **Frontend (Nuxt 3 + Pinia)**
+    Aplicación web desarrollada con Nuxt 3 y gestión de estado global mediante Pinia, utilizando Tailwind CSS para los estilos, empaquetada mediante Docker y configurada para comunicarse con la API REST del backend.
+
+    **Manejo de Estado (Pinia)**: Las peticiones a la API y el estado de la aplicación se gestionan a través del Store de Pinia (useTaskStore), centralizando la lógica de consumo del backend.
+
+    **Autenticación en UI**: Las peticiones enviadas desde Nuxt hacia el backend incluyen el Header HTTP de autorización:
+
+    **Authorization**: Bearer token-secret (o el token configurado en tus variables de entorno).
+
+    **Gestión de Tareas:**
+
+    - Ver tareas: Al cargar la página principal, el store ejecuta la acción para obtener las tareas desde http://localhost:4000/api/tasks.
+
+    - Crear tarea: Usa el formulario principal especificando Título y Descripción, y presiona el botón "Guardar".
+
+    - Marcar como completada: Haz clic en el checkbox o interruptor de una tarea para actualizar su estado (PUT/PATCH).
+
+    - Eliminar tarea: Haz clic en el icono de papelera para borrar la tarea (DELETE).
+
+
     **Ejecución de Pruebas (Tests)**
 
-    El proyecto incluye pruebas unitarias configuradas con Jest. Para ejecutarlas dentro del contenedor del backend, corre el siguiente comando en tu terminal:
+    El proyecto incluye pruebas unitarias configuradas con Jest. Para ejecutarlas dentro del contenedor, corre el siguiente comando en tu terminal:
 
-    `docker exec -it <nombre_o_id_del_contenedor_backend> pnpm test`
-
+    `docker exec -it <nombre_o_id_del_contenedor> pnpm test`
 
 ### Sección 3 (Teoría)
 Se creo un archivo con las preguntas y respuestas, dejo el link
