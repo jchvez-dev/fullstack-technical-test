@@ -69,3 +69,5 @@ Copy the script found in `01-ejercicios/05-consulta-sonia.sql`. It includes tabl
 
 ### Section 2 (Fullstack App)
 ### Section 3 (Theory)
+A file containing the questions and answers has been created; here is the link:
+[Questions and answers](./03-teoria/questionario.md)
