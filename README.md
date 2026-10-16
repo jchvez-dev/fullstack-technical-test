@@ -68,3 +68,5 @@ Copia el script que se encuentra en `01-ejercicios\05-consulta-sonia.sql`. Inclu
 
 ### Sección 2 (App Fullstack)
 ### Sección 3 (Teoría)
+Se creo un archivo con las preguntas y respuestas, dejo el link
+[Preguntas y respuestas](./03-teoria/questionario.md)
