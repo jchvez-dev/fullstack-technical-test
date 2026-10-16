@@ -1,0 +1,57 @@
+name: technical-test-juan-chavez
+
+networks:
+  technical-test:
+    driver: bridge
+
+volumes:
+  mongo_data:
+  pnpm-store:
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true3
+      - NUXT_PUBLIC_API_BASE=http://localhost:4000/api/tasks/
+      - NUXT_PUBLIC_API_TOKEN=token-secret
+    networks:
+      - technical-test
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    ports: 
+      - "4000:4000"
+    volumes:
+      - ./backend:/app:delegated
+      - /app/node_modules
+      - pnpm-store:/pnpm/store
+    environment:
+      - PORT=4000
+      - MONGO_URI=mongodb://admin:secret@mongo:27017/tareasdb?authSource=admin
+      - AUTH_TOKEN=token-secret
+    stdin_open: true
+    tty: true
+    networks:
+      - technical-test
+
+  mongo:
+    image: mongo:7.0
+    ports:
+      - "27018:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - technical-test
