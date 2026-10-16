@@ -54,7 +54,17 @@ Para correr el punto de entrada (index.ts) y ver la ejecucion general de los eje
 
 - `pnpm test`
 Ejecutar las pruebas unitarias
-Para correr de manera automatica todos los archivos de prueba unitaria (*.test.ts):
+Para correr de manera automatica todos los archivos de prueba unitaria (*.test.ts).
+
+**Ejercicios de Bases de Datos (MySQL - Pruebas en Línea)**
+
+Para probar scripts de MySQL (como el ejercicio de control de préstamos de libros) sin necesidad de configurar un entorno local, puedes utilizar la plataforma web gratuita DB Fiddle:
+
+Entra a [DB Fiddle](dbfiddle.uk).
+
+En las opciones de configuración de la plataforma, selecciona MySQL como motor de base de datos.
+
+Copia el script que se encuentra en `01-ejercicios\05-consulta-sonia.sql`. Incluye la creación de tablas, los datos de prueba y la consulta final.
 
 ### Sección 2 (App Fullstack)
 ### Sección 3 (Teoría)

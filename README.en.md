@@ -57,5 +57,15 @@ Runs the entry point (`index.ts`) to see the overall execution of the exercises.
 Executes unit tests.
 Automatically runs all unit test files (`*.test.ts`).
 
+**Database Exercises (MySQL - Online Testing)**
+
+To test MySQL scripts (such as the book loan control exercise) without needing to configure a local environment, you can use the free web platform DB Fiddle:
+
+Go to [DB Fiddle](dbfiddle.uk).
+
+In the platform's configuration options, select MySQL as the database engine.
+
+Copy the script found in `01-ejercicios/05-consulta-sonia.sql`. It includes table creation, test data, and the final query.
+
 ### Section 2 (Fullstack App)
 ### Section 3 (Theory)
