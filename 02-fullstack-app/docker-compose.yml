@@ -1,0 +1,36 @@
+name: technical-test-juan-chavez
+
+networks:
+  technical-test:
+    driver: bridge
+
+volumes:
+  mongo_data:
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    container_name: fullstack-backend
+    ports: 
+      - "4000:4000"
+    volumes:
+      - ./backend:/app:delegated
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    stdin_open: true
+    tty: true
+    networks:
+      - technical-test
+
+  mongo:
+    image: mongo:7.0
+    ports:
+      - "27018:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+    volumes:
+      - mongo_data:/data/db
