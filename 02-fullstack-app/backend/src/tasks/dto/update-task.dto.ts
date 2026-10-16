@@ -9,7 +9,7 @@ import { IsBoolean, IsOptional, IsString } from 'class-validator';
 export class UpdateTaskDto {
   @IsString()
   @IsOptional()
-  title?: string;
+  titulo?: string;
 
   @IsString()
   @IsOptional()
@@ -17,5 +17,5 @@ export class UpdateTaskDto {
 
   @IsBoolean()
   @IsOptional()
-  completed?: boolean;
+  completado?: boolean;
 }
