@@ -6,20 +6,23 @@ networks:
 
 volumes:
   mongo_data:
+  pnpm-store:
 
 services:
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile.dev
-    container_name: fullstack-backend
     ports: 
       - "4000:4000"
     volumes:
       - ./backend:/app:delegated
       - /app/node_modules
+      - pnpm-store:/pnpm/store
     environment:
-      - NODE_ENV=development
+      - PORT=4000
+      - MONGO_URI=mongodb://admin:secret@mongo:27017/tareasdb?authSource=admin
+      - AUTH_TOKEN=token-secret
     stdin_open: true
     tty: true
     networks:
@@ -34,3 +37,5 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=secret
     volumes:
       - mongo_data:/data/db
+    networks:
+      - technical-test

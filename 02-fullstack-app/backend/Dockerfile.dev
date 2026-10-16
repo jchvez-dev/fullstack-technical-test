@@ -9,13 +9,10 @@ RUN apk add --no-cache libc6-compat curl \
 ENV PNPM_HOME=/pnpm/store
 RUN mkdir -p /pnpm/store && chown -R node:node /pnpm
 
-# Solo copiamos los archivos de dependencias primero para aprovechar la caché
 COPY package.json pnpm-lock.yaml ./
 RUN chown node:node /app
 USER node
 RUN pnpm install --frozen-lockfile
-
-# Eliminamos el "COPY . ." de aquí porque el volumen de Docker Compose se encarga de pasar el código.
 
 EXPOSE 4000
 

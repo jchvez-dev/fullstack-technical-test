@@ -67,6 +67,61 @@ En las opciones de configuración de la plataforma, selecciona MySQL como motor 
 Copia el script que se encuentra en `01-ejercicios\05-consulta-sonia.sql`. Incluye la creación de tablas, los datos de prueba y la consulta final.
 
 ### Sección 2 (App Fullstack)
+- **Backend (NestJS + MongoDB)** 
+
+    API RESTful desarrollada con NestJS, utilizando Mongoose para la persistencia de datos en MongoDB y contenedores mediante Docker Compose.
+
+    Levanta los servicios con Docker Compose: `docker compose up --build`
+
+    Esto pondrá en marcha dos contenedores:
+    - backend: Corriendo en el puerto 4000.
+    - mongo: Base de datos MongoDB ejecutándose en el puerto 27017 (expuesta localmente en el 27018).
+
+    **Cómo probar la API**
+
+    Puedes probar los endpoints utilizando herramientas como Thunder Client, Postman o cURL. 
+
+    Autenticación: Las peticiones protegidas requieren enviar un Header HTTP:
+    - Authorization: Bearer token-secret (o el token configurado en las variables de entorno)
+
+    **Endpoints disponibles (/api/tasks):**
+    1. Listar todas las tareas
+        - Método: GET
+        - URL: http://localhost:4000/api/tasks
+    2. Obtener una tarea por ID
+        - Método: GET
+        - URL: http://localhost:4000/api/tasks/:id
+    3. Crear una tarea
+        - Método: POST
+        - URL: http://localhost:4000/api/tasks
+        - Body (JSON):
+        ```json
+        {
+            "title": "Aprender Docker y NestJS",
+            "description": "Completar la prueba técnica",
+            "completed": false
+        }
+        ```
+    4. Actualizar una tarea
+        - Método: PUT (o PATCH)
+        - URL: http://localhost:4000/api/tasks/:id
+        - Body (JSON):
+        ```json
+        {
+            "completed": true
+        }
+        ```
+    5. Eliminar una tarea
+        - Método: DELETE
+        - URL: http://localhost:4000/api/tasks/:id
+
+    **Ejecución de Pruebas (Tests)**
+
+    El proyecto incluye pruebas unitarias configuradas con Jest. Para ejecutarlas dentro del contenedor del backend, corre el siguiente comando en tu terminal:
+
+    `docker exec -it <nombre_o_id_del_contenedor_backend> pnpm test`
+
+
 ### Sección 3 (Teoría)
 Se creo un archivo con las preguntas y respuestas, dejo el link
 [Preguntas y respuestas](./03-teoria/questionario.md)
